@@ -45,6 +45,7 @@ environments:
                 enabled-by-default: false
 
 ---
+
 grails:
     mime:
         disable:
@@ -97,6 +98,8 @@ grails:
                 taglib: none
                 staticparts: none
 
+
+
 ---
 hibernate:
     cache:
@@ -114,7 +117,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:postgresql://localhost:5432/product_db  # URL vers ta base PostgreSQL locale
             logSql: true
     test:
@@ -143,3 +146,5 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+export:
+    directory: "export"

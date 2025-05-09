@@ -7,7 +7,7 @@ class Product {
     BigDecimal price
 
     static constraints = {
-        name blank: false
+        name  blank: false
         description nullable: true
         price nullable: false, min: 0.0
     }

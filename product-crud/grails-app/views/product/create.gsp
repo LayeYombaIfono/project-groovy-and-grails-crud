@@ -2,45 +2,113 @@
 <html>
     <head>
         <meta name="layout" content="main" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
         <g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
     <body>
     <div id="content" role="main">
-        <div class="container">
-            <section class="row bg-danger">
-                <a href="#create-product" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+        <div class="container py-5">
+
+            <!-- Navigation  -->
+            <section class="d-flex justify-content-between align-items-center mb-4">
+                <a href="#create-product" class="skip-link text-secondary" tabindex="-1">
+                    <g:message code="default.link.skip.label" default="Aller au content&hellip;"/>
+                </a>
+
+                <nav class="nav" role="navigation">
+                    <ul class="nav list-unstyled mb-0">
+                        <li class="mx-1">
+                            <a class="nav-link text-secondary font-weight-bold" href="${createLink(uri: '/')}">
+                                <g:message code="default.home.label" default="Acceuil"/>
+                            </a>
+                        </li>
+                        <li class="">
+                            <g:link class="nav-link text-secondary text-secondary font-weight-bold" action="index">
+                                <g:message code="default.list.label" args="[entityName]" default="Liste ${entityName}" />
+                            </g:link>
+                        </li>
                     </ul>
-                </div>
+                </nav>
+
             </section>
-            <section class="row">
-                <div id="create-product" class="col-12 content scaffold-create" role="main">
-                    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+
+
+            <!-- Formulaire d'ajout -->
+
+            <section class="container">
+                <div id="create-product" class="col-md-10 offset-md-1 col-lg-8 offset-lg-2" role="main">
+                    <h1 class="mb-1 text-secondary">
+                        <g:message code="default.create.label" args="[entityName]" default="Ajouter ${entityName}" />
+                    </h1>
+
+                <!-- Message flash -->
                     <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
+                    <div class="alert alert-success" role="status">${flash.message}</div>
                     </g:if>
+
+                <!-- Affichage des erreurs -->
                     <g:hasErrors bean="${this.product}">
-                    <ul class="errors" role="alert">
-                        <g:eachError bean="${this.product}" var="error">
-                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                        </g:eachError>
-                    </ul>
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0 list-unstyled" >
+                                <g:eachError bean="${this.product}" var="error">
+                                    <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                                </g:eachError>
+                            </ul>
+                        </div>
                     </g:hasErrors>
-                    <g:form resource="${this.product}" method="POST">
-                        <fieldset class="form">
-                            <f:all bean="product"/>
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </fieldset>
+
+                <!-- Formulaire -->
+                    <g:form resource="${this.product}" method="POST" class="needs-validation">
+                        <div class="card  border-0">
+                            <div class="card-body">
+                                <fieldset class="form  p-2">
+                                    <div class="form-row w-100">
+
+                                        <!-- Champ Nom -->
+                                        <div class="form-group col-12">
+                                            <label for="name">Nom du produit <span class="text-danger">*</span></label>
+                                            <g:textField name="name" value="${product?.name}" class="form-control w-100" required="true" placeholder="Entrer le nom du produit" />
+                                            <div class="invalid-feedback">
+                                                Veuillez saisir un nom valide.
+                                            </div>
+                                        </div>
+
+                                        <!-- Champ Description -->
+                                        <div class="form-group col-12">
+                                            <label for="description">Description</label>
+                                            <g:textArea name="description" value="${product?.description}" class="form-control" rows="3"/>
+                                        </div>
+
+                                        <!-- Champ Prix -->
+                                        <div class="form-group col-12">
+                                            <label for="price">Prix <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <g:textField name="price" value="${product?.price}" class="form-control" required="true" type="number" step="0.01"/>
+
+                                                <div class="invalid-feedback">
+                                                    Veuillez saisir un prix valide.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="mx-5">
+                            <g:submitButton name="create" class="btn btn-info btn-lg px-4 w-100"
+                                            value="${message(code: 'default.button.create.label', default: 'Créer')}" />
+                        </div>
                     </g:form>
                 </div>
             </section>
+
         </div>
+
     </div>
+
     </body>
 </html>

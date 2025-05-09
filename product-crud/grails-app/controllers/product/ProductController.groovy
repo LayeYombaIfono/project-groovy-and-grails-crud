@@ -1,10 +1,12 @@
 package product
 
+
 import grails.validation.ValidationException
+
 import static org.springframework.http.HttpStatus.*
 
 class ProductController {
-
+    XmlExportProductService xlmExportProductService
     ProductService productService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -95,5 +97,16 @@ class ProductController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    // Méthode pour expoter au format xml
+    XmlExportProductService xmlExportProductService
+
+    def exportXml(Long id) {
+        String xmlContent = xmlExportProductService.xmlExport(id)
+
+        response.setContentType("application/xml")
+        response.setHeader("Content-Disposition", "attachment; filename=product-${id}.xml")
+        render text: xmlContent, contentType: "application/xml", encoding: "UTF-8"
     }
 }

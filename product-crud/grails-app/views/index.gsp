@@ -3,46 +3,43 @@
 <head>
     <meta name="layout" content="main"/>
     <title>GESTION DES PRODUITS</title>
+
 </head>
 <body>
-<content tag="nav">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-        </li>
-        <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-            <li class="controller">
-                <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-            </li>
-        </g:each>
-</content>
 
-<div class="svg" role="presentation">
-    <div class="grails-logo-container">
-        <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-    </div>
-</div>
 
-<div id="content" role="main">
-    <div class="container">
-        <section class="row colset-2-its">
-            <h1>Bienvenue sur app-product</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
+<div class="container mt-5 text-center">
+
+            <h1 class="text-info text-center text-uppercase font-weight-bold text-monospace">
+                Welcome to my first groovy and grails app
+            </h1>
+
+            <p class="text-black-50 text-wrap text-monospace">
+                Gestion des produits  simple et efficace avec my app product <br>
+                I heard you like definition lists. <br>
+                Let me put a definition list inside your definition list.<br>
+                Let me put a definition list inside your definition list.<br>
             </p>
 
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
 
-                </ul>
-            </div>
-        </section>
-    </div>
+    <ul class="list-unstyled row text-center d-flex justify-content-center align-items-center mt-3">
+        <g:each in="${grailsApplication.controllerClasses.sort { it.fullName } }" var="c">
+            <li class="col-md-3 col-sm-4 col-6 mb-3">
+                <g:link controller="${c.logicalPropertyName}"
+                        class="btn btn-info btn-block text-truncate text-center"
+                        title="${c.fullName}">
+                    ${c.logicalPropertyName.capitalize()}
+                </g:link>
+            </li>
+        </g:each>
+    </ul>
+
 </div>
 
 </body>
