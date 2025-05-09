@@ -25,6 +25,7 @@ class ProductController {
     }
 
     def save(Product product) {
+
         if (!product) {
             notFound()
             return
@@ -103,7 +104,6 @@ class ProductController {
     def exportXml(Long id) {
         String xmlContent = xmlExportProductService.xmlExport(id)
 
-        response.setContentType("application/xml")
         response.setHeader("Content-Disposition", "attachment; filename=product-${id}.xml")
         render text: xmlContent, contentType: "application/xml", encoding: "UTF-8"
     }

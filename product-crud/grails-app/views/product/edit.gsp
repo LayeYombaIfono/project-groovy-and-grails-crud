@@ -71,7 +71,17 @@
                                         <div class="form-group col-12">
                                             <label for="price">Prix <span class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <g:textField name="price" value="${product?.price}" class="form-control" required="true" type="number" step="0.01"/>
+
+                                                <g:textField name="price"
+                                                             value="${product?.price}"
+                                                             class="form-control"
+                                                             required="true"
+                                                             type="text"
+                                                             step="0.01"
+                                                             onkeypress="return isNumberKey(event)"
+                                                             onpaste="return false"
+                                                             inputmode="decimal"
+                                                             id="price"/>
 
                                                 <div class="invalid-feedback">
                                                     Veuillez saisir un prix valide.
@@ -91,5 +101,22 @@
             </section>
         </div>
     </div>
+
+    <!--JS -->
+    <script>
+        function isNumberKey(evt) {
+            const charCode = evt.which ? evt.which : evt.keyCode;
+            const input = evt.target;
+            const charTyped = String.fromCharCode(charCode);
+
+            // Autorise chiffres et un seul point décimal
+            if (charTyped === '.' && input.value.includes('.')) {
+                return false; // un seul point
+            }
+
+            // Bloque tout ce qui n’est pas chiffre ou point
+            return /[0-9.]$/.test(charTyped);
+        }
+    </script>
     </body>
 </html>
