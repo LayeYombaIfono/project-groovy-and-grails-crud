@@ -6,7 +6,7 @@ import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
 class ProductController {
-    XmlExportProductService xlmExportProductService
+    XmlExportProductService xmlExportProductService
     ProductService productService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -100,8 +100,6 @@ class ProductController {
     }
 
     // Méthode pour expoter au format xml
-    XmlExportProductService xmlExportProductService
-
     def exportXml(Long id) {
         String xmlContent = xmlExportProductService.xmlExport(id)
 
