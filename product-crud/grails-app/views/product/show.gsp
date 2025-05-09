@@ -45,7 +45,7 @@
                                     <i class="fas fa-edit"></i>
                                     <g:message code="default.button.edit.label" default="Edit" />
                                 </g:link>
-                                <g:link controller="product" action="exportXml" id="${product?.id}" class="btn btn-info btn-sm">
+                                <g:link controller="product" action="exportXml" id="${product?.id}" class="btn btn-info btn-sm" target="_blank">
                                     <i class="fas fa-file-export"></i>
                                     Export XML
                                 </g:link>
