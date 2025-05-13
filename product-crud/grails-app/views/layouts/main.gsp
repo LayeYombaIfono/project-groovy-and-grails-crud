@@ -1,8 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <g:layoutHead/>
     <title>
         <g:layoutTitle default="Grails"/>
     </title>
@@ -13,8 +15,11 @@
 
 <body >
 
-<g:layoutBody/>
 
+
+<div class="container mt-4">
+    <g:layoutBody/>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

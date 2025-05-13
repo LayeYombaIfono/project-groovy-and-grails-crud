@@ -5,7 +5,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
         <g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
+        <asset:javascript src="inputUtils.js"/>
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+
+
     </head>
     <body>
     <div id="content" role="main">
@@ -69,7 +72,10 @@
                                         <!-- Champ Nom -->
                                         <div class="form-group col-12">
                                             <label for="name">Nom du produit <span class="text-danger">*</span></label>
-                                            <g:textField type="text" name="name" value="${product?.name}" class="form-control w-100" required="true" placeholder="Entrer le nom du produit" />
+
+                                                <input type="text" name="name" value="${product?.name}" class="form-control w-100" required placeholder="Entrer le nom du produit" />
+
+
                                             <div class="invalid-feedback">
                                                 Veuillez saisir un nom valide.
                                             </div>
@@ -78,7 +84,7 @@
                                         <!-- Champ Description -->
                                         <div class="form-group col-12">
                                             <label for="description">Description</label>
-                                            <g:textArea name="description" value="${product?.description}" class="form-control" rows="3"/>
+                                                <g:textArea name="description" value="${product?.description}" class="form-control" rows="3" />
                                         </div>
 
                                         <!-- Champ Prix -->
@@ -86,16 +92,14 @@
                                             <label for="price">Prix <span class="text-danger">*</span></label>
                                             <div class="input-group">
 
-                                                <g:textField name="price"
-                                                             value="${product?.price}"
-                                                             class="form-control"
-                                                             required="true"
-                                                             type="text"
-                                                             step="0.01"
-                                                             onkeypress="return isNumberKey(event)"
-                                                             onpaste="return false"
-                                                             inputmode="decimal"
-                                                             id="price"/>
+                                                <input type="number"
+                                                       name="price"
+                                                       value="${product?.price}"
+                                                       class="form-control"
+                                                       required="required"
+                                                       step="0"
+                                                       inputmode="decimal"
+                                                       id="price"/>
 
                                                 <div class="invalid-feedback">
                                                     Veuillez saisir un prix valide.
@@ -121,21 +125,7 @@
 
     </div>
 
-    <script>
-        function isNumberKey(evt) {
-            const charCode = evt.which ? evt.which : evt.keyCode;
-            const input = evt.target;
-            const charTyped = String.fromCharCode(charCode);
 
-            // Autorise chiffres et un seul point décimal
-            if (charTyped === '.' && input.value.includes('.')) {
-                return false; // un seul point
-            }
-
-            // Bloque tout ce qui n’est pas chiffre ou point
-            return /[0-9.]$/.test(charTyped);
-        }
-    </script>
 
 
     </body>

@@ -1,13 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="layout" content="main" />
+
         <g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <asset:javascript src="inputUtils.js"/>
+
     </head>
     <body>
-    <div id="content" role="main">
-        <div class="container">
+
             <section class="row d-flex justify-content-between align-items-center">
                 <a href="#edit-product" class="skip-link text-secondary text-decoration-none" tabindex="-1"><g:message code="default.link.skip.label" default="Aller au content&hellip;"/></a>
                 <div class="nav" role="navigation">
@@ -55,7 +58,7 @@
                                         <!-- Champ Nom -->
                                         <div class="form-group col-12  w-100">
                                             <label for="name">Nom du produit <span class="text-danger">*</span></label>
-                                            <g:textField name="name" value="${product?.name}" class="form-control" required="true" placeholder="Entrer le nom du produit" />
+                                            <input name="name" value="${product?.name}" class="form-control" required="required" placeholder="Entrer le nom du produit" />
                                             <div class="invalid-feedback">
                                                 Veuillez saisir un nom valide.
                                             </div>
@@ -72,14 +75,12 @@
                                             <label for="price">Prix <span class="text-danger">*</span></label>
                                             <div class="input-group">
 
-                                                <g:textField name="price"
+                                                <input name="price"
                                                              value="${product?.price}"
                                                              class="form-control"
-                                                             required="true"
-                                                             type="text"
+                                                             required="required"
+                                                             type="number"
                                                              step="0.01"
-                                                             onkeypress="return isNumberKey(event)"
-                                                             onpaste="return false"
                                                              inputmode="decimal"
                                                              id="price"/>
 
@@ -99,24 +100,7 @@
                     </g:form>
                 </div>
             </section>
-        </div>
-    </div>
 
-    <!--JS -->
-    <script>
-        function isNumberKey(evt) {
-            const charCode = evt.which ? evt.which : evt.keyCode;
-            const input = evt.target;
-            const charTyped = String.fromCharCode(charCode);
 
-            // Autorise chiffres et un seul point décimal
-            if (charTyped === '.' && input.value.includes('.')) {
-                return false; // un seul point
-            }
-
-            // Bloque tout ce qui n’est pas chiffre ou point
-            return /[0-9.]$/.test(charTyped);
-        }
-    </script>
     </body>
 </html>
