@@ -13,28 +13,14 @@
     <body>
     <div id="content" role="main">
         <div class="container py-5">
-
             <!-- Navigation  -->
             <section class="d-flex justify-content-between align-items-center mb-4">
-                <a href="#create-product" class="skip-link text-secondary" tabindex="-1">
-                    <g:message code="default.link.skip.label" default="Aller au content&hellip;"/>
-                </a>
-
-                <nav class="nav" role="navigation">
-                    <ul class="nav list-unstyled mb-0">
-                        <li class="mx-1">
-                            <a class="nav-link text-secondary font-weight-bold" href="${createLink(uri: '/')}">
-                                <g:message code="default.home.label" default="Acceuil"/>
-                            </a>
-                        </li>
-                        <li class="">
-                            <g:link class="nav-link text-secondary text-secondary font-weight-bold" action="index">
-                                <g:message code="default.list.label" args="[entityName]" default="Liste ${entityName}" />
-                            </g:link>
-                        </li>
-                    </ul>
-                </nav>
-
+                <h4 class="text-sm-5 text-secondary px-3 text-center">
+                    <g:message code="default.create.label" args="[entityName]" default="Ajouter ${entityName}" />
+                </h4>
+                <g:link class="btn btn-info font-weight-bold" action="index">
+                    <g:message code="default.list.label" args="[entityName]" default="Liste ${entityName}" />
+                </g:link>
             </section>
 
 
@@ -42,10 +28,6 @@
 
             <section class="container">
                 <div id="create-product" class="col-md-10 offset-md-1 col-lg-8 offset-lg-2" role="main">
-                    <h1 class="mb-1 text-secondary">
-                        <g:message code="default.create.label" args="[entityName]" default="Ajouter ${entityName}" />
-                    </h1>
-
                 <!-- Message flash -->
                     <g:if test="${flash.message}">
                     <div class="alert alert-success" role="status">${flash.message}</div>
@@ -64,16 +46,19 @@
 
                 <!-- Formulaire -->
                     <g:form resource="${this.product}" method="POST" class="needs-validation">
-                        <div class="card  border-0">
+                        <div class="card  border mb-2">
                             <div class="card-body">
                                 <fieldset class="form  p-2">
                                     <div class="form-row w-100">
 
                                         <!-- Champ Nom -->
                                         <div class="form-group col-12">
-                                            <label for="name">Nom du produit <span class="text-danger">*</span></label>
+                                            <label for="name" class="text-secondary">
+                                                <g:message code="label.product.name"/>
+                                                <span class="text-danger">*</span>
+                                            </label>
 
-                                                <input type="text" name="name" value="${product?.name}" class="form-control w-100" required placeholder="Entrer le nom du produit" />
+                                                <input type="text" name="name" value="${product?.name}" class="form-control w-100" required placeholder="${message(code: 'placeholder.product.name')}" />
 
 
                                             <div class="invalid-feedback">
@@ -83,13 +68,18 @@
 
                                         <!-- Champ Description -->
                                         <div class="form-group col-12">
-                                            <label for="description">Description</label>
-                                                <g:textArea name="description" value="${product?.description}" class="form-control" rows="3" />
+                                            <label for="description" class="text-secondary">
+                                                <g:message code="label.product.description"/>
+                                            </label>
+                                                <g:textArea name="description" value="${product?.description}" class="form-control" rows="3" placeholder="${message(code: 'placeholder.product.description')}" />
                                         </div>
 
                                         <!-- Champ Prix -->
                                         <div class="form-group col-12">
-                                            <label for="price">Prix <span class="text-danger">*</span></label>
+                                            <label for="price" class="text-secondary">
+                                                <g:message code="label.product.price"/>
+                                                <span class="text-danger">*</span>
+                                            </label>
                                             <div class="input-group">
 
                                                 <input type="number"
@@ -113,20 +103,15 @@
                         </div>
 
                         <div class="mx-5">
-                            <g:submitButton name="create" class="btn btn-info btn-lg px-4 w-100"
-                                            value="${message(code: 'default.button.create.label', default: 'Créer')}" />
+
+                            <button type="submit" name="create" class="btn btn-info  w-50">
+                                    <g:message code="default.button.create.label" encodeAs="raw"/>
+                            </button>
                         </div>
                     </g:form>
                 </div>
             </section>
-
-
         </div>
-
-    </div>
-
-
-
-
+        </div>
     </body>
 </html>

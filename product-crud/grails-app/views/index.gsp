@@ -1,12 +1,11 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main"/>
     <title>GESTION DES PRODUITS</title>
 
 </head>
 <body>
-
 
 <br>
 <br>
@@ -17,30 +16,20 @@
 <div class="container mt-5 text-center">
 
             <h1 class="text-info text-center text-uppercase font-weight-bold text-monospace">
-                Welcome to my first groovy and grails app
+                <g:message code="welcome.message"/>
             </h1>
 
             <p class="text-black-50 text-wrap text-monospace">
-                Gestion des produits  simple et efficace avec my app product <br>
-                I heard you like definition lists. <br>
-                Let me put a definition list inside your definition list.<br>
-                Let me put a definition list inside your definition list.<br>
+                <g:message code="app.paragraph"/>
             </p>
 
-
-    <ul class="list-unstyled row text-center d-flex justify-content-center align-items-center mt-3">
-        <g:each in="${grailsApplication.controllerClasses.sort { it.fullName } }" var="c">
-            <li class="col-md-3 col-sm-4 col-6 mb-3">
-                <g:link controller="${c.logicalPropertyName}"
-                        class="btn btn-info btn-block text-truncate text-center"
-                        title="${c.fullName}">
-                    ${c.logicalPropertyName.capitalize()}
-                </g:link>
-            </li>
-        </g:each>
-    </ul>
+        <a class="btn  btn-info" href="${createLink(controller: 'product', action: 'index')}">
+            <g:message code="button.view.more"/>
+        </a>
 
 </div>
+<br>
+<br>
 
 </body>
 </html>

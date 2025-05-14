@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.*
 
 class ProductController {
     XmlExportProductService xmlExportProductService
+    XmlImportProductService xmlImportProductService
     ProductService productService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -32,7 +33,9 @@ class ProductController {
         }
 
         try {
+
             productService.save(product)
+
         } catch (ValidationException e) {
             respond product.errors, view:'create'
             return
@@ -100,11 +103,43 @@ class ProductController {
         }
     }
 
-    // Méthode pour expoter au format xml
+    // Method to export in xml format
     def exportXml(Long id) {
         String xmlContent = xmlExportProductService.xmlExport(id)
 
         response.setHeader("Content-Disposition", "attachment; filename=product-${id}.xml")
         render text: xmlContent, contentType: "application/xml", encoding: "UTF-8"
     }
+
+    // Method to import in xml format
+    def importXml(){
+        def file = request.getFile('xmlFile')
+
+        if (file?.empty){
+            flash.message = "Le fichier XML est vide!"
+            redirect action: "create"
+            return
+        }
+
+        try {
+           File tempFile = File.createTempFile("upload-", ".xml")
+            file.transferTo(tempFile)
+
+            def products = xmlImportProductService.importXml(tempFile)
+
+            if (products){
+                flash.message = "Produit importé avec succès"
+                redirect action: "edit", id: products[0].id
+
+            }else {
+                flash.message = "Aucun produit importé."
+                redirect action: "create"
+            }
+
+        }catch (Exception e){
+            flash.message = "Erreur pendant l'import : ${e.message}"
+            redirect action: "create"
+        }
+    }
+
 }

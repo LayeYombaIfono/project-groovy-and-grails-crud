@@ -9,81 +9,79 @@
     </head>
     <body>
 
-    <div id="content" role="main">
+    <div class="mt-4" id="content" role="main">
         <div class="container py-4">
 
-            <!-- Navigation -->
-            <section class="d-flex justify-content-between align-items-center mb-4 ">
-                <a href="#list-product" class="skip-link text-decoration-none text-secondary" tabindex="-1">
-                    <g:message code="default.link.skip.label" default="Aller au content&hellip;"/>
-                </a>
-                <div class="nav" role="navigation">
-                    <ul class="nav d-flex align-items-center list-unstyled mb-0">
-                        <li class="nav">
-                            <a class="nav-link text-secondary font-weight-bold" href="${createLink(uri: '/')}">
-                                <g:message code="default.home.label" default="Acceuil"/>
-                            </a>
-                        </li>
-                        <li class="nav">
-                            <g:link class="nav-link text-secondary font-weight-bold" action="create">
-                                <g:message code="default.new.label" args="[entityName]" default="Ajouter ${entityName}"/>
+            <h4 class="py-4 fs-5 text-secondary text-center">
+                <g:message code="default.list.label" encodeAs="row"/>
+            </h4>
 
-                            </g:link>
-                        </li>
-                    </ul>
-                </div>
-            </section>
 
             <!-- Liste des produits -->
             <section class="row">
                 <div id="list-product" class="col-12 content scaffold-list" role="region" aria-label="Liste des produits">
-                    <h1 class="mb-4 text-secondary">
-                        Liste des produits
-                    </h1>
+
                     <g:if test="${flash.message}">
                         <div class="alert alert-info" role="status">${flash.message}</div>
                     </g:if>
                 <!-- Tableau responsive Bootstrap -->
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover shadow-sm">
-                            <thead class="thead-light">
-                             <tr>
-                                <th>Nom</th>
-                                 <th>Description</th>
-                                 <th>Prix</th>
-                                 <th>Action</th>
+                  <div class="card border shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover shadow-sm">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>
+                                        <g:message code="table.header.name"/>
+                                    </th>
+                                    <th>
+                                        <g:message code="table.header.description"/>
+                                    </th>
+                                    <th>
+                                        <g:message code="table.header.price"/>
+                                    </th>
+                                    <th>
+                                        <g:message code="table.header.action"/>
+                                    </th>
 
-                             </tr>
-                            </thead>
+                                </tr>
+                                </thead>
 
-                            <tbody>
-                               <g:each in="${productList}" var="product">
-                                   <tr>
-                                       <td> ${product.name} </td>
-                                       <td> ${product.description} </td>
-                                       <td> ${product.price} </td>
-                                       <td>
-                                           <g:link class="btn btn-sm btn-outline-primary" action="show" id="${product.id}">
-                                               Voir
-                                           </g:link>
-                                           <g:link class="btn btn-sm btn-outline-secondary" action="edit" id="${product.id}">Modifier</g:link>
-                                           <g:form action="delete" method="DELETE" params="[id: product.id]" class="d-inline">
-                                               <g:submitButton name="delete" class="btn btn-sm btn-outline-danger" value="Supprimer" />
-                                           </g:form>
-                                       </td>
+                                <tbody>
+                                <g:each in="${productList}" var="product">
+                                    <tr>
+                                        <td> ${product.name} </td>
+                                        <td> ${product.description} </td>
+                                        <td> ${product.price} </td>
+                                        <td>
+                                            <g:link class="btn btn-sm btn-outline-primary" action="show" id="${product.id}">
+                                                <i class="fa-solid fa-eye"></i>
+                                                <g:message code="default.show.label"/>
+                                            </g:link>
+                                            <g:link class="btn btn-sm btn-outline-info" action="edit" id="${product.id}">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                <g:message code="default.button.edit.label"/>
+                                            </g:link>
+                                            <g:link class="btn btn-sm btn-outline-danger" action="delete" method="DELETE" params="[id: product.id]" >
+                                                <i class="fa-solid fa-trash"></i>
+                                                <g:message code="default.button.delete.label"/>
+                                            </g:link>
+                                        </td>
 
-                                   </tr>
-                               </g:each>
-                            </tbody>
+                                    </tr>
+                                </g:each>
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
                     </div>
 
-                    <g:if test="${productCount > params.int('max')}">
-                    <div class="mt-4" aria-label="pagination">
-                        <g:paginate total="${productCount ?: 0}" />
-                    </div>
-                    </g:if>
+                      <g:if test="${productCount > params.int('max')}">
+                          <div class="mt-4" aria-label="pagination">
+                              <g:paginate total="${productCount ?: 0}" />
+                          </div>
+                      </g:if>
+                  </div>
                 </div>
             </section>
         </div>
